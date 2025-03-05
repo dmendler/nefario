@@ -4,10 +4,11 @@ import MainList from "./MainList";
 /* MAIN MODULE WITH STATEFUL PARENT AND STATELESS CHILD */
 const MainModule = () => {
   return (
-    <div>
+    <section>
+      <h1>Welcome to the Main Component</h1>
       This is the main module.
       <MainList />
-    </div>
+    </section>
   );
 };
 
