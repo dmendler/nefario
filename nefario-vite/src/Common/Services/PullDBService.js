@@ -56,3 +56,27 @@ export const removePerson = (id) => {
     });
   });
 };
+
+export const getAllSwimmersByRank = async (rankID) => {
+  const Rank = Parse.Object.extend("Rank");
+  const rankQuery = new Parse.Query(Rank);
+  rankQuery.equalTo("rankID", rankID); // Find the specific rank
+
+  try {
+    const rank = await rankQuery.first();
+    if (!rank) {
+      console.log("Rank not found");
+      return [];
+    }
+
+    const swimmersRelation = rank.relation("swimmers"); // Get relation field
+    const swimmerQuery = swimmersRelation.query(); // Query related swimmers
+    swimmerQuery.ascending(rank.get("sortBy")); // Sort dynamically by rank’s sortBy field
+
+    const swimmers = await swimmerQuery.find();
+    return swimmers; // Returns an array of Swimmer objects
+  } catch (error) {
+    console.error("Error fetching swimmers for rank:", error);
+    return [];
+  }
+};
