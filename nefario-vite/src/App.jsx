@@ -1,5 +1,5 @@
 import React from "react";
-import Components from "./Components/Components.js";
+import Components from "./Components/Components.jsx";
 //import * as Env from "./environments.js";
 import Parse from "parse";
 
