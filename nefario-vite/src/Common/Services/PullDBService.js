@@ -35,15 +35,15 @@ export const getById = (id) => {
 };
 
 // READ operation - get all people in Parse class "rank_list"
-export const getAllPeople = () => {
-  const Person = Parse.Object.extend("rank_list");
-  const query = new Parse.Query(Person);
+// export const getAllPeople = () => {
+//   const Person = Parse.Object.extend("rank_list");
+//   const query = new Parse.Query(Person);
 
-  return query.find().then((results) => {
-    // Returns an array of Person objects
-    return results;
-  });
-};
+//   return query.find().then((results) => {
+//     // Returns an array of Person objects
+//     return results;
+//   });
+// };
 
 // DELETE operation - remove person by ID
 export const removePerson = (id) => {
@@ -57,10 +57,11 @@ export const removePerson = (id) => {
   });
 };
 
+// Fetch all swimmers belonging to a specific rank
 export const getAllSwimmersByRank = async (rankID) => {
-  const Rank = Parse.Object.extend("Rank");
-  const rankQuery = new Parse.Query(Rank);
-  rankQuery.equalTo("rankID", rankID); // Find the specific rank
+  const rank = Parse.Object.extend("rank");
+  const rankQuery = new Parse.Query(rank);
+  rankQuery.equalTo("rankID", rankID); // Find rank by ID
 
   try {
     const rank = await rankQuery.first();
@@ -69,14 +70,14 @@ export const getAllSwimmersByRank = async (rankID) => {
       return [];
     }
 
-    const swimmersRelation = rank.relation("swimmers"); // Get relation field
+    const swimmersRelation = rank.relation("swimmers"); // Get the relation field
     const swimmerQuery = swimmersRelation.query(); // Query related swimmers
-    swimmerQuery.ascending(rank.get("sortBy")); // Sort dynamically by rank’s sortBy field
+    swimmerQuery.ascending(rank.get("sort_by")); // Sort dynamically by rank's sortBy field
 
     const swimmers = await swimmerQuery.find();
-    return swimmers; // Returns an array of Swimmer objects
+    return swimmers; // Return an array of Swimmer objects
   } catch (error) {
-    console.error("Error fetching swimmers for rank:", error);
+    console.error("Error fetching swimmers:", error);
     return [];
   }
 };
