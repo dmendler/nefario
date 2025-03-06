@@ -3,6 +3,7 @@ import Components from "./Components/Components.jsx";
 //import * as Env from "./environments.js";
 import Parse from "parse";
 
+// This will be replace with above import
 const Env = {
   APPLICATION_ID: "hghyojbRy20HCekyMqxeTtA1dE1jVshTRp4uCeXD",
   JAVASCRIPT_KEY: "KJgNuLJxlz9rUdtkMIbAOovxdXGOHkuIP3wxracO",

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+/* Header and Navbar */
+// Will add more CSS to create better navbar
 const Header = () => {
     return (
         <header>
