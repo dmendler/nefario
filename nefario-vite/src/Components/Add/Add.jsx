@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createPerson } from "../../Common/Services/PullDBService";
 
+/* ADD MODULE TO ADD SWIMMER TO DATABASE */
 const AddSwimmer = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

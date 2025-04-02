@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createUser } from "./AuthService";
 import AuthForm from "./AuthForm";
 
+/* STATEFUL PARENT COMPONENT */
 const AuthRegister = () => {
   const [newUser, setNewUser] = useState({
     firstName: "",

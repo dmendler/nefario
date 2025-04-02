@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "./AuthService";
 import AuthLoginForm from "./AuthLoginForm";
 
+/* STATEFUL PARENT COMPONENT */
 const AuthLogin = () => {
   const [userCredentials, setUserCredentials] = useState({
     email: "",

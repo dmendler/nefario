@@ -1,3 +1,4 @@
+/* STATELESS CHILD COMPONENT */
 const AuthLoginForm = ({ user, onChange, onSubmit }) => {
   return (
     <div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/* AUTH MODULE WITH STATEFUL PARENT AND STATELESS CHILD */
 const AuthModule = () => {
   return (
     <div>
