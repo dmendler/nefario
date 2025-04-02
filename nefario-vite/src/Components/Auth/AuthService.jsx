@@ -47,6 +47,7 @@ export const logoutUser = () => {
   return Parse.User.logOut()
     .then(() => {
       console.log("User logged out successfully");
+      alert("You have been successfully logged out");
     })
     .catch((error) => {
       alert(`Error: ${error.message}`);
