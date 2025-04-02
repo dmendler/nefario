@@ -21,14 +21,34 @@ export const createUser = (newUser) => {
     });
 };
 
-export const authenticateUser = ({ email, password }) => {
-  return Parse.User.logIn(email, password)
-    .then((user) => {
-      console.log("User logged in:", user);
-      return user;
+export const loginUser = (currUser) => {
+  const user = new Parse.User();
+
+  user.set("password", currUser.password);
+  user.set("username", currUser.email);
+
+  console.log("User: ", user);
+  console.log();
+  return user
+    .logIn(user.email, user.password)
+    .then((currUserSaved) => {
+      return currUserSaved;
     })
     .catch((error) => {
-      alert(`Login failed: ${error.message}`);
-      return null;
+      alert(`Error: ${error.message}`);
+    });
+};
+
+export const authenticateUser = () => {
+  return Parse.User.current()?.authenticated;
+};
+
+export const logoutUser = () => {
+  return Parse.User.logOut()
+    .then(() => {
+      console.log("User logged out successfully");
+    })
+    .catch((error) => {
+      alert(`Error: ${error.message}`);
     });
 };

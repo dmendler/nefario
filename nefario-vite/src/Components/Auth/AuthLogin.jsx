@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authenticateUser } from "./AuthService";
+import { loginUser } from "./AuthService";
 import AuthLoginForm from "./AuthLoginForm";
 
 const AuthLogin = () => {
@@ -18,7 +18,7 @@ const AuthLogin = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    authenticateUser(userCredentials).then((user) => {
+    loginUser(userCredentials).then((user) => {
       if (user) {
         alert(`Welcome back, ${user.get("firstName")}!`);
         navigate("/add"); // Redirect to dashboard after login
