@@ -40,7 +40,7 @@ export const loginUser = (currUser) => {
 };
 
 export const authenticateUser = () => {
-  return Parse.User.current()?.authenticated;
+  return !!Parse.User.current();
 };
 
 export const logoutUser = () => {

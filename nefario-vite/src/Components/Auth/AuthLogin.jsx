@@ -4,7 +4,7 @@ import { loginUser } from "./AuthService";
 import AuthLoginForm from "./AuthLoginForm";
 
 /* STATEFUL PARENT COMPONENT */
-const AuthLogin = () => {
+const AuthLogin = ({ setIsLoggedIn }) => {
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
@@ -22,6 +22,7 @@ const AuthLogin = () => {
     loginUser(userCredentials).then((user) => {
       if (user) {
         alert(`Welcome back, ${user.get("firstName")}!`);
+        setIsLoggedIn(true); // Set the logged-in state to true
         navigate("/add"); // Redirect to dashboard after login
       } else {
         alert("Invalid email or password.");
