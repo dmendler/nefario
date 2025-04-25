@@ -4,7 +4,7 @@ import { createUser } from "./AuthService";
 import AuthForm from "./AuthForm";
 
 /* STATEFUL PARENT COMPONENT */
-const AuthRegister = () => {
+const AuthRegister = ({ setIsLoggedIn }) => {
   const [newUser, setNewUser] = useState({
     firstName: "",
     lastName: "",
@@ -26,6 +26,7 @@ const AuthRegister = () => {
           );
         }
         setAdd(false);
+        setIsLoggedIn(true);
       });
     }
   }, [newUser, add]);
@@ -42,7 +43,7 @@ const AuthRegister = () => {
     e.preventDefault();
     console.log("submitted: ", e.target);
     setAdd(true);
-    navigate("/");
+    navigate("/add");
   };
 
   return (

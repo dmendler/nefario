@@ -13,19 +13,19 @@ import AuthLogin from "./Auth/AuthLogin.jsx";
 import AuthRegister from "./Auth/AuthRegister.jsx";
 import AddSwimmer from "./Add/Add.jsx";
 import ProtectedRoute from "../Common/Services/ProtectedRoute.jsx";
-import { authenticateUser } from "./Auth/AuthService.jsx";
-const Components = () => {
+// import { authenticateUser } from "./Auth/AuthService.jsx";
+const Components = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <div>
       <Router>
-        <Header isLoggedIn={authenticateUser()} />
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <hr />
         <Routes>
           <Route path="/" element={<MainModule />} />
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<AuthModule />} />
-          <Route path="/register" element={<AuthRegister />} />
-          <Route path="/login" element={<AuthLogin />} />
+          <Route path="/register" element={<AuthRegister setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/login" element={<AuthLogin setIsLoggedIn={setIsLoggedIn} />} />
           <Route
             path="/add"
             element={<ProtectedRoute path="/add" element={AddSwimmer} />}

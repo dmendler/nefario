@@ -2,6 +2,8 @@ import React from "react";
 import Components from "./Components/Components.jsx";
 //import * as Env from "./environments.js";
 import Parse from "parse";
+import { useState, useEffect } from "react";
+import { authenticateUser, logoutUser } from "./Components/Auth/AuthService";
 
 // This will be replace with above import
 const Env = {
@@ -14,7 +16,13 @@ Parse.initialize(Env.APPLICATION_ID, Env.JAVASCRIPT_KEY);
 Parse.serverURL = Env.SERVER_URL;
 
 function App() {
-  return <Components />;
+  const [isLoggedIn, setIsLoggedIn] = useState(authenticateUser());
+  useEffect(() => {
+    Parse.User.currentAsync().then((user) => {
+      setIsLoggedIn(!!user);
+    });
+}, []);
+  return <Components isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>;
 }
 
 export default App;
