@@ -31,7 +31,7 @@ const AuthRegister = ({ setIsLoggedIn }) => {
     }
   }, [newUser, add]);
 
-  const onChangeHandler = (e) => {
+  const onChange = (e) => {
     e.preventDefault();
     console.log(e.target);
     const { name, value: newValue } = e.target;
@@ -39,19 +39,24 @@ const AuthRegister = ({ setIsLoggedIn }) => {
     setNewUser({ ...newUser, [name]: newValue });
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     console.log("submitted: ", e.target);
     setAdd(true);
     navigate("/add");
   };
 
+  const onBack = () => {
+    navigate("/add"); // Redirect back to auth
+  }
+
   return (
     <div>
       <AuthForm
         user={newUser}
-        onChange={onChangeHandler}
-        onSubmit={onSubmitHandler}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onBack={onBack}
       />
     </div>
   );

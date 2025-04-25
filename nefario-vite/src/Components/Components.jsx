@@ -19,7 +19,7 @@ const Components = ({ isLoggedIn, setIsLoggedIn }) => {
     <div>
       <Router>
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        <hr />
+        <br />
         <Routes>
           <Route path="/" element={<MainModule />} />
           <Route path="/about" element={<About />} />

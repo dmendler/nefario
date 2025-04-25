@@ -31,13 +31,17 @@ const AuthLogin = ({ setIsLoggedIn }) => {
     });
   };
 
+  const onBack = () => {
+    navigate("/add"); // Redirect back to auth
+  }
+
   return (
     <div>
       <AuthLoginForm
         user={userCredentials}
         onChange={onChangeHandler}
         onSubmit={onSubmitHandler}
-        isLogin={true}
+        onBack={onBack} // Pass the onBack function to the form
       />
     </div>
   );

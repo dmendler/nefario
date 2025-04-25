@@ -50,7 +50,7 @@ const AddSwimmer = () => {
           onChange={(e) => setTime5Free(e.target.value)}
           required
         />
-        <button type="submit">Add Swimmer</button>
+        <button type="submit" class="btn btn-success btn-sm">Add Swimmer</button>
       </form>
     </div>
   );
