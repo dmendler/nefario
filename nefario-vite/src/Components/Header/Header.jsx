@@ -3,7 +3,7 @@ import { logoutUser } from "../Auth/AuthService";
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLogout = () => {
-    logoutUser()
+    logoutUser();
     setIsLoggedIn(false);
   };
   return (
@@ -40,11 +40,26 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
             </Link>
           </li>
           {isLoggedIn && (
-            <li class="nav-item">
-              <button class="btn btn-danger btn-sm ms-2" onClick={handleLogout}>
-                Log Out
-              </button>
-            </li>
+            <>
+              <li class="nav-item">
+                <Link class="nav-link" to="/score">
+                  Score Calculator
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" to="/optimal-lineup">
+                  Optimal Lineup
+                </Link>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-danger btn-sm ms-2"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+              </li>
+            </>
           )}
         </ul>
       </div>
