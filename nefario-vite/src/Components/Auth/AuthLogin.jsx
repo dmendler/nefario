@@ -23,7 +23,7 @@ const AuthLogin = ({ setIsLoggedIn }) => {
       if (user) {
         alert(`Welcome back, ${user.get("firstName")}!`);
         setIsLoggedIn(true); // Set the logged-in state to true
-        navigate("/add"); // Redirect to dashboard after login
+        navigate("/"); // Redirect to dashboard after login
       } else {
         alert("Invalid email or password.");
         navigate("/");
