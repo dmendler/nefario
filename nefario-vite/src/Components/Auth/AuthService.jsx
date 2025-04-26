@@ -1,7 +1,5 @@
 import Parse from "parse";
 
-const navigate = useNavigate();
-
 export const createUser = (newUser) => {
   const user = new Parse.User();
 
