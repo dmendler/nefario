@@ -27,7 +27,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <Link class="nav-link" to="/">
-              Main
+              Home
             </Link>
           </li>
           <li class="nav-item">
