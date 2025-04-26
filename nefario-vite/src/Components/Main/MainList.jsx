@@ -37,7 +37,7 @@ const MainList = () => {
   return (
     <div>
       <hr />
-      This is the main list parent component.
+      <p>Here you can fetch the swimmers from the database:</p>
       <MainForm 
       onSort={sortSwimmers}
       onFetch={fetchSwimmers} 
