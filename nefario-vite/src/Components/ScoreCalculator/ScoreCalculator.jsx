@@ -140,9 +140,9 @@ const ScoreCalculator = () => {
 
   return (
     <div>
-      <h2>Meet Scoring Calculator</h2>
-      <p>Fill out swimmers' times for each event, then calculate the score.</p>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <h2 class="indent">Meet Scoring Calculator</h2>
+      <p class="indent">Fill out swimmers' times for each event, then calculate the score.</p>
+      <table class="table">
         <thead>
           <tr>
             <th style={{ textAlign: 'left' }}>Event</th>
@@ -153,7 +153,7 @@ const ScoreCalculator = () => {
         <tbody>
           {events.map(event => (
             <tr key={event.id} style={{ borderBottom: '1px solid #ccc' }}>
-              <td>{event.name}</td>
+              <td style={{ verticalAlign: 'middle' }}>{event.name}</td>
               <td>
                 {event.type === "relay" ? (
                   [...Array(3)].map((_, relayIndex) => (
@@ -213,14 +213,17 @@ const ScoreCalculator = () => {
         </tbody>
       </table>
 
-      <button onClick={handleCalculate} style={{ marginTop: '20px' }}>
+      <button
+      class="btn btn-success ms-2"
+      onClick={handleCalculate}
+      style={{ marginTop: '20px' }}>
         Calculate Score
       </button>
 
       <div>
-        <h3>Results:</h3>
-        <p>Team A: {teamScores.teamA}</p>
-        <p>Team B: {teamScores.teamB}</p>
+        <h3 class="indent">Results:</h3>
+        <p class="indent">Team A: {teamScores.teamA}</p>
+        <p class="indent">Team B: {teamScores.teamB}</p>
       </div>
     </div>
   );

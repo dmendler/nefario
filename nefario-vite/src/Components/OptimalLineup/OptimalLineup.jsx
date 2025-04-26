@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAllSwimmersByRank } from "/src/Common/Services/PullDBService";
+import "../../styles.css";
 
 const OptimalLineup = () => {
   const [teamSwimmers, setTeamSwimmers] = useState([]);
@@ -145,8 +146,8 @@ const OptimalLineup = () => {
 
   return (
     <div>
-      <h2>Optimal Lineup Builder</h2>
-      <p>Input opponent times below, then calculate your best possible lineup.</p>
+      <h2 class="indent">Optimal Lineup Builder</h2>
+      <p class="indent">Input opponent times below, then calculate your best possible lineup.</p>
 
       {warning && (
         <div style={{ color: 'red', fontWeight: 'bold', marginBottom: '10px' }}>
@@ -154,7 +155,7 @@ const OptimalLineup = () => {
         </div>
       )}
 
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <table class="table">
         <thead>
           <tr>
             <th style={{ textAlign: 'left' }}>Event</th>
@@ -164,7 +165,7 @@ const OptimalLineup = () => {
         <tbody>
           {events.map(event => (
             <tr key={event.id} style={{ borderBottom: '1px solid #ccc' }}>
-              <td>{event.name}</td>
+              <td style={{ verticalAlign: 'middle' }}>{event.name}</td>
               <td>
                 {event.type === "individual" ? (
                   [...Array(3)].map((_, i) => (
@@ -201,12 +202,15 @@ const OptimalLineup = () => {
         </tbody>
       </table>
 
-      <button onClick={findOptimalLineup} style={{ marginTop: '20px' }}>
+      <button
+      class="btn btn-success ms-2"
+      onClick={findOptimalLineup}
+      style={{ marginTop: '20px' }}>
         Find Optimal Lineup
       </button>
 
       {optimalLineup && (
-        <div>
+        <div class="indent">
           <h3>Recommended Lineup</h3>
           {Object.keys(optimalLineup).map(eventName => (
             <div key={eventName} style={{ marginBottom: '10px' }}>

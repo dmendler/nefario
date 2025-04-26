@@ -37,7 +37,7 @@ const MainList = () => {
   return (
     <div>
       <hr />
-      <p>Here you can fetch the swimmers from the database:</p>
+      <p class="indent">Here you can fetch the swimmers from the database:</p>
       <MainForm 
       onSort={sortSwimmers}
       onFetch={fetchSwimmers} 

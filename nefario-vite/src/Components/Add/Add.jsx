@@ -69,8 +69,8 @@ const AddSwimmer = () => {
 
   return (
     <div>
-      <h2>Add a New Swimmer</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 class="indent">Add a New Swimmer</h2>
+      <form onSubmit={handleSubmit} class="indent">
         <input
           type="text"
           name="first_name"
@@ -114,6 +114,7 @@ const AddSwimmer = () => {
         <h4>Individual Medley</h4>
         <input name="im_200_time" placeholder="200 IM Time" value={formData.im_200_time} onChange={handleChange} />
 
+        <br />
         <button type="submit" className="btn btn-success btn-sm" style={{ marginTop: '10px' }}>Add Swimmer</button>
       </form>
     </div>
