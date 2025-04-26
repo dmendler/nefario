@@ -7,12 +7,12 @@ const AuthModule = () => {
       <center>
       <div>
         <Link to="/register">
-          <button type="button" class="btn btn-secondary btn-lg">Register</button>
+          <button type="button" className="btn btn-secondary btn-lg">Register</button>
         </Link>
         <br />
         <br />
         <Link to="/login">
-          <button type="button" class="btn btn-secondary btn-lg">Login</button>
+          <button type="button" className="btn btn-secondary btn-lg">Login</button>
         </Link>
       </div>
     </center>

@@ -1,27 +1,69 @@
 import React, { useState } from "react";
 import { createPerson } from "../../Common/Services/PullDBService";
 
-/* ADD MODULE TO ADD SWIMMER TO DATABASE */
 const AddSwimmer = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [time5Free, setTime5Free] = useState("");
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    team_id: "1",
+    fly_50_time: "",
+    fly_100_time: "",
+    fly_200_time: "",
+    back_50_time: "",
+    back_100_time: "",
+    back_200_time: "",
+    breast_50_time: "",
+    breast_100_time: "",
+    breast_200_time: "",
+    free_50_time: "",
+    free_100_time: "",
+    free_200_time: "",
+    free_500_time: "",
+    free_1000_time: "",
+    free_1650_time: "",
+    im_200_time: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!firstName || !lastName || !time5Free) {
-      alert("Please fill in all fields");
+    if (!formData.first_name || !formData.last_name || !formData.team_id) {
+      alert("First name, last name, and team ID are required.");
       return;
     }
     try {
-      await createPerson(firstName, lastName, time5Free);
+      await createPerson(formData);
       alert("Swimmer added successfully!");
-      setFirstName("");
-      setLastName("");
-      setTime5Free("");
+      setFormData({
+        first_name: "",
+        last_name: "",
+        team_id: "1",
+        fly_50_time: "",
+        fly_100_time: "",
+        fly_200_time: "",
+        back_50_time: "",
+        back_100_time: "",
+        back_200_time: "",
+        breast_50_time: "",
+        breast_100_time: "",
+        breast_200_time: "",
+        free_50_time: "",
+        free_100_time: "",
+        free_200_time: "",
+        free_500_time: "",
+        free_1000_time: "",
+        free_1650_time: "",
+        im_200_time: "",
+      });
     } catch (error) {
       console.error("Error adding swimmer:", error);
-      alert("Failed to add swimmer");
+      alert("Failed to add swimmer.");
     }
   };
 
@@ -31,26 +73,48 @@ const AddSwimmer = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          name="first_name"
           placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          value={formData.first_name}
+          onChange={handleChange}
           required
         />
         <input
           type="text"
+          name="last_name"
           placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          value={formData.last_name}
+          onChange={handleChange}
           required
         />
-        <input
-          type="text"
-          placeholder="5 Free Time"
-          value={time5Free}
-          onChange={(e) => setTime5Free(e.target.value)}
-          required
-        />
-        <button type="submit" class="btn btn-success btn-sm">Add Swimmer</button>
+
+        <h4>Fly Times</h4>
+        <input name="fly_50_time" placeholder="50 Fly Time" value={formData.fly_50_time} onChange={handleChange} />
+        <input name="fly_100_time" placeholder="100 Fly Time" value={formData.fly_100_time} onChange={handleChange} />
+        <input name="fly_200_time" placeholder="200 Fly Time" value={formData.fly_200_time} onChange={handleChange} />
+
+        <h4>Backstroke Times</h4>
+        <input name="back_50_time" placeholder="50 Back Time" value={formData.back_50_time} onChange={handleChange} />
+        <input name="back_100_time" placeholder="100 Back Time" value={formData.back_100_time} onChange={handleChange} />
+        <input name="back_200_time" placeholder="200 Back Time" value={formData.back_200_time} onChange={handleChange} />
+
+        <h4>Breaststroke Times</h4>
+        <input name="breast_50_time" placeholder="50 Breast Time" value={formData.breast_50_time} onChange={handleChange} />
+        <input name="breast_100_time" placeholder="100 Breast Time" value={formData.breast_100_time} onChange={handleChange} />
+        <input name="breast_200_time" placeholder="200 Breast Time" value={formData.breast_200_time} onChange={handleChange} />
+
+        <h4>Freestyle Times</h4>
+        <input name="free_50_time" placeholder="50 Free Time" value={formData.free_50_time} onChange={handleChange} />
+        <input name="free_100_time" placeholder="100 Free Time" value={formData.free_100_time} onChange={handleChange} />
+        <input name="free_200_time" placeholder="200 Free Time" value={formData.free_200_time} onChange={handleChange} />
+        <input name="free_500_time" placeholder="500 Free Time" value={formData.free_500_time} onChange={handleChange} />
+        <input name="free_1000_time" placeholder="1000 Free Time" value={formData.free_1000_time} onChange={handleChange} />
+        <input name="free_1650_time" placeholder="1650 Free Time" value={formData.free_1650_time} onChange={handleChange} />
+
+        <h4>Individual Medley</h4>
+        <input name="im_200_time" placeholder="200 IM Time" value={formData.im_200_time} onChange={handleChange} />
+
+        <button type="submit" className="btn btn-success btn-sm" style={{ marginTop: '10px' }}>Add Swimmer</button>
       </form>
     </div>
   );
