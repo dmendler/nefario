@@ -32,7 +32,7 @@ const AuthLogin = ({ setIsLoggedIn }) => {
   };
 
   const onBack = () => {
-    navigate("/add"); // Redirect back to auth
+    navigate("/auth"); // Redirect back to auth
   }
 
   return (

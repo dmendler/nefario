@@ -6,8 +6,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     logoutUser();
     setIsLoggedIn(false);
   };
+  
   return (
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary px-3">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary px-3">
       <Link class="navbar-brand" to="/">
         SwimApp
       </Link>
@@ -34,13 +35,20 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               About
             </Link>
           </li>
-          <li class="nav-item">
-            <Link class="nav-link" to="/add">
-              Add to Database
-            </Link>
+          {!isLoggedIn && (
+            <li class="nav-item">
+              <Link class="nav-link" to="/auth">
+                Sign In
+              </Link>
           </li>
+            )}
           {isLoggedIn && (
             <>
+              <li class="nav-item">
+                <Link class="nav-link" to="/add">
+                  Add to Database
+                </Link>
+              </li>
               <li class="nav-item">
                 <Link class="nav-link" to="/score">
                   Score Calculator
