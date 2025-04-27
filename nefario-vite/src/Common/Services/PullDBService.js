@@ -35,9 +35,9 @@ export const createPerson = (formData) => {
   // ACL
   const acl = new Parse.ACL();
   acl.setPublicReadAccess(true);
-  acl.setPublicWriteAccess(true);
+  acl.setPublicWriteAccess(true);      
   competitor.setACL(acl);
-
+                                                                   
   return competitor.save();
 };
 
