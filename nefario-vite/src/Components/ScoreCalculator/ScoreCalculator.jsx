@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const ScoreCalculator = () => {
   const [selections, setSelections] = useState({});
@@ -18,15 +18,34 @@ const ScoreCalculator = () => {
     { id: 12, name: "400 Free Relay", type: "relay" },
   ];
 
+  const parseTimeInput = (input) => {
+    if (typeof input !== "string") return NaN;
+    input = input.trim();
+    if (input.includes(":")) {
+      const [minutes, seconds] = input.split(":");
+      return parseInt(minutes, 10) * 60 + parseFloat(seconds);
+    } else {
+      return parseFloat(input);
+    }
+  };
+
   const handleInputChange = (eventId, team, relayIndex, swimmerIndex, value) => {
     setSelections(prev => {
       const eventSelection = prev[eventId] || { teamA: [], teamB: [] };
       const teamSelection = [...(eventSelection[team] || [])];
-      while (teamSelection.length <= relayIndex) teamSelection.push([]);
-      const relay = [...teamSelection[relayIndex]];
-      while (relay.length <= swimmerIndex) relay.push("");
-      relay[swimmerIndex] = value;
-      teamSelection[relayIndex] = relay;
+      const eventType = events.find(e => e.id === eventId)?.type;
+
+      if (eventType === "relay") {
+        while (teamSelection.length <= relayIndex) teamSelection.push([]);
+        const relay = [...teamSelection[relayIndex]];
+        while (relay.length <= swimmerIndex) relay.push("");
+        relay[swimmerIndex] = value.toUpperCase() === "NT" ? "NT" : value;
+        teamSelection[relayIndex] = relay;
+      } else {
+        while (teamSelection.length <= relayIndex) teamSelection.push("");
+        teamSelection[relayIndex] = value.toUpperCase() === "NT" ? "NT" : value;
+      }
+
       return {
         ...prev,
         [eventId]: {
@@ -38,71 +57,81 @@ const ScoreCalculator = () => {
   };
 
   const isValidTime = (input) => {
-    return input !== "" && input.toUpperCase() !== "NT";
+    if (typeof input === "string") {
+      input = input.trim();
+      if (input.toUpperCase() === "NT") return false;
+      const parsed = parseTimeInput(input);
+      return !isNaN(parsed);
+    }
+    return typeof input === "number" && !isNaN(input);
   };
 
   const handleCalculate = () => {
-    // Validation: Check for missing times (individuals allow NT, relays require complete)
+    let teamAPoints = 0;
+    let teamBPoints = 0;
+
     for (const event of events) {
       const eventSelections = selections[event.id] || { teamA: [], teamB: [] };
 
-      if (event.type === "individual") {
-        const allInputs = [...(eventSelections.teamA || []), ...(eventSelections.teamB || [])];
-        if (allInputs.some(input => input === "")) {
-          alert(`Please fill out all swimmer times for ${event.name} before calculating.`);
-          return;
-        }
-      } else if (event.type === "relay") {
+      if (event.type === "relay") {
         const allRelays = [...(eventSelections.teamA || []), ...(eventSelections.teamB || [])];
         for (let relay of allRelays) {
-          if (relay.length !== 4 || relay.some(input => input === "")) {
-            alert(`Each relay in ${event.name} must have 4 swimmer times (or "NT") entered.`);
+          if (relay.length !== 4 || relay.some(time => time === "")) {
+            alert(`Error: Incomplete relay entries in ${event.name}. Each relay must have 4 swimmer times.`);
             return;
           }
         }
       }
     }
 
-    let teamAPoints = 0;
-    let teamBPoints = 0;
-
     events.forEach(event => {
       const eventSelections = selections[event.id] || { teamA: [], teamB: [] };
 
       if (event.type === "individual") {
-        const teamATimes = (eventSelections.teamA || []).filter(isValidTime).map(Number);
-        const teamBTimes = (eventSelections.teamB || []).filter(isValidTime).map(Number);
+        const teamATimes = (eventSelections.teamA || []).filter(isValidTime).map(time => ({
+          team: 'A',
+          time: parseTimeInput(time),
+        }));
+        const teamBTimes = (eventSelections.teamB || []).filter(isValidTime).map(time => ({
+          team: 'B',
+          time: parseTimeInput(time),
+        }));
 
-        const allSwimmers = [
-          ...teamATimes.map(time => ({ team: "A", time })),
-          ...teamBTimes.map(time => ({ team: "B", time })),
-        ];
-
+        const allSwimmers = [...teamATimes, ...teamBTimes];
         allSwimmers.sort((a, b) => a.time - b.time);
 
         const points = [9, 4, 3, 2, 1];
-        let teamACount = 0;
-        let teamBCount = 0;
+        let place = 1;
+        let prevTime = null;
 
-        for (let i = 0; i < Math.min(points.length, allSwimmers.length); i++) {
-          const swimmer = allSwimmers[i];
-          if (swimmer.team === "A" && teamACount < 3) {
-            teamAPoints += points[i];
-            teamACount++;
-          } else if (swimmer.team === "B" && teamBCount < 3) {
-            teamBPoints += points[i];
-            teamBCount++;
+        allSwimmers.forEach((swimmer, index) => {
+          if (index > 0 && swimmer.time !== prevTime) {
+            place = index + 1;
           }
-        }
+          if (place <= points.length) {
+            if (swimmer.team === 'A') {
+              teamAPoints += points[place - 1];
+            } else {
+              teamBPoints += points[place - 1];
+            }
+          }
+          prevTime = swimmer.time;
+        });
       } else if (event.type === "relay") {
-        const teamARelays = (eventSelections.teamA || []).filter(relay => relay.every(isValidTime)).map(relay => relay.map(Number));
-        const teamBRelays = (eventSelections.teamB || []).filter(relay => relay.every(isValidTime)).map(relay => relay.map(Number));
+        const teamARelays = (eventSelections.teamA || [])
+          .filter(relay => relay.every(isValidTime))
+          .map(relay => ({
+            team: 'A',
+            time: relay.map(time => parseTimeInput(time)).reduce((acc, t) => acc + t, 0),
+          }));
+        const teamBRelays = (eventSelections.teamB || [])
+          .filter(relay => relay.every(isValidTime))
+          .map(relay => ({
+            team: 'B',
+            time: relay.map(time => parseTimeInput(time)).reduce((acc, t) => acc + t, 0),
+          }));
 
-        const relays = [
-          ...teamARelays.map(times => ({ team: "A", time: times.reduce((acc, t) => acc + t, 0) })),
-          ...teamBRelays.map(times => ({ team: "B", time: times.reduce((acc, t) => acc + t, 0) })),
-        ];
-
+        const relays = [...teamARelays, ...teamBRelays];
         relays.sort((a, b) => a.time - b.time);
 
         const relayPoints = [11, 4, 2];
@@ -116,21 +145,22 @@ const ScoreCalculator = () => {
           }
         }
 
-        while (validRelays.length < 3 && validRelays.length < relays.length) {
-          const nextRelay = relays[validRelays.length];
-          if (teamCounts[nextRelay.team] < 2) {
-            validRelays.push(nextRelay);
-            teamCounts[nextRelay.team]++;
-          }
-        }
+        let place = 1;
+        let prevTime = null;
 
         for (let i = 0; i < validRelays.length; i++) {
           const relay = validRelays[i];
-          if (relay.team === "A") {
-            teamAPoints += relayPoints[i];
-          } else {
-            teamBPoints += relayPoints[i];
+          if (i > 0 && relay.time !== prevTime) {
+            place = i + 1;
           }
+          if (place <= relayPoints.length) {
+            if (relay.team === 'A') {
+              teamAPoints += relayPoints[place - 1];
+            } else {
+              teamBPoints += relayPoints[place - 1];
+            }
+          }
+          prevTime = relay.time;
         }
       }
     });
@@ -140,9 +170,9 @@ const ScoreCalculator = () => {
 
   return (
     <div>
-      <h2 class="indent">Meet Scoring Calculator</h2>
-      <p class="indent">Fill out swimmers' times for each event, then calculate the score.</p>
-      <table class="table">
+      <h2 className="indent">Meet Scoring Calculator</h2>
+      <p className="indent">Fill out swimmers' times for each event, then calculate the score.</p>
+      <table className="table">
         <thead>
           <tr>
             <th style={{ textAlign: 'left' }}>Event</th>
@@ -213,17 +243,13 @@ const ScoreCalculator = () => {
         </tbody>
       </table>
 
-      <button
-      class="btn btn-success ms-2"
-      onClick={handleCalculate}
-      style={{ marginTop: '20px' }}>
+      <button className="btn btn-success ms-2" onClick={handleCalculate} style={{ marginTop: '20px' }}>
         Calculate Score
       </button>
-
       <div>
-        <h3 class="indent">Results:</h3>
-        <p class="indent">Team A: {teamScores.teamA}</p>
-        <p class="indent">Team B: {teamScores.teamB}</p>
+        <h3 className="indent">Results:</h3>
+        <p className="indent">Team A: {teamScores.teamA}</p>
+        <p className="indent">Team B: {teamScores.teamB}</p>
       </div>
     </div>
   );
