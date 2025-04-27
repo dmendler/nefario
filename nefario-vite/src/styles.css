@@ -1,7 +1,6 @@
 .App {
-    font-family: sans-serif;
-    text-align: center;
-  }
+  font-family: 'Roboto Condensed', sans-serif;
+}
 .indent {
   padding-left: 20px;
 }
@@ -11,7 +10,7 @@
   padding-left: 20px;
 }
 .nav-link {
-  color: 'white';
+  color: white;
   text-decoration: none;
 }
 .nav-link.active {

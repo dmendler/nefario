@@ -4,6 +4,7 @@ import Components from "./Components/Components.jsx";
 import Parse from "parse";
 import { useState, useEffect } from "react";
 import { authenticateUser, logoutUser } from "./Components/Auth/AuthService";
+import "./styles.css";
 
 // This will be replace with above import
 const Env = {
@@ -22,7 +23,10 @@ function App() {
       setIsLoggedIn(!!user);
     });
 }, []);
-  return <Components isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>;
-}
+  return (
+    <div className="App">
+      <Components isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>;
+    </div>
+  );}
 
 export default App;
