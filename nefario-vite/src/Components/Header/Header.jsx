@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { logoutUser } from "../Auth/AuthService";
+import "../../styles.css";
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLogout = () => {
@@ -9,9 +10,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   
   return (
     <nav class="navbar navbar-expand-md navbar-dark bg-primary px-3">
-      <Link class="navbar-brand" to="/">
+      <NavLink className="navbar-brand" to="/">
         SwimApp
-      </Link>
+      </NavLink>
       <button
         class="navbar-toggler"
         type="button"
@@ -26,38 +27,38 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <Link class="nav-link" to="/">
+            <NavLink className="nav-link" to="/">
               Home
-            </Link>
+            </NavLink>
           </li>
           <li class="nav-item">
-            <Link class="nav-link" to="/about">
+            <NavLink className="nav-link" to="/about">
               About
-            </Link>
+            </NavLink>
           </li>
           {!isLoggedIn && (
             <li class="nav-item">
-              <Link class="nav-link" to="/auth">
+              <NavLink className="nav-link" to="/auth">
                 Sign In
-              </Link>
+              </NavLink>
           </li>
             )}
           {isLoggedIn && (
             <>
               <li class="nav-item">
-                <Link class="nav-link" to="/add">
+                <NavLink className="nav-link" to="/add">
                   Add to Database
-                </Link>
+                </NavLink>
               </li>
               <li class="nav-item">
-                <Link class="nav-link" to="/score">
+                <NavLink className="nav-link" to="/score">
                   Score Calculator
-                </Link>
+                </NavLink>
               </li>
               <li class="nav-item">
-                <Link class="nav-link" to="/optimal-lineup">
+                <NavLink className="nav-link" to="/optimal-lineup">
                   Optimal Lineup
-                </Link>
+                </NavLink>
               </li>
               <li class="nav-item">
                 <button

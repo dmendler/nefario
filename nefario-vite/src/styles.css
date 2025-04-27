@@ -10,3 +10,10 @@
   width: 100%;
   padding-left: 20px;
 }
+.nav-link {
+  color: 'white';
+  text-decoration: none;
+}
+.nav-link.active {
+  text-decoration: underline;
+}
