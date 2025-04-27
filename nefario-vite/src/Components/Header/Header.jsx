@@ -47,7 +47,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
             <>
               <li class="nav-item">
                 <NavLink className="nav-link" to="/add">
-                  Add to Database
+                  Manage Swimmers
                 </NavLink>
               </li>
               <li class="nav-item">

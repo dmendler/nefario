@@ -1,5 +1,4 @@
 /* About Compnent, explaining the use of the website */
-// Will add more when our website if more fully implemented
 export default function About() {
   return (
     <center>
