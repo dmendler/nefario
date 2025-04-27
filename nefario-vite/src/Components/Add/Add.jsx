@@ -6,6 +6,7 @@ import {
   updatePerson,
 } from "../../Common/Services/PullDBService";
 
+/* Not just add, but also update and delete*/
 const AddSwimmer = () => {
   const [formData, setFormData] = useState({
     first_name: "",
@@ -300,11 +301,11 @@ const AddSwimmer = () => {
           {isEditing ? "Update Swimmer" : "Add Swimmer"}
         </button>
       </form>
-
-      <div className="mt-4">
+      <hr />
+      <div class="indent">
         <h4>Manage Swimmers</h4>
         <select
-          className="form-select mb-3"
+          class="form-select mb-3"
           value={selectedSwimmer}
           onChange={(e) => setSelectedSwimmer(e.target.value)}
         >
@@ -320,7 +321,7 @@ const AddSwimmer = () => {
         </select>
 
         <button
-          className="btn btn-danger"
+          class="btn btn-danger"
           onClick={handleDelete}
           disabled={!selectedSwimmer}
         >
