@@ -43,7 +43,7 @@ const Components = ({ isLoggedIn, setIsLoggedIn }) => {
             path="/score"
             element={<ProtectedRoute path="/score" element={ScoreCalculator} />}
           />
-          <Route path="/optimal-lineup" element={<OptimalLineup />} />
+          <Route path="/optimal-lineup" element={<ProtectedRoute path="/optimal-lineup" element={OptimalLineup} />} />
         </Routes>
       </Router>
     </div>
