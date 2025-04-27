@@ -1,16 +1,18 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { logoutUser } from "../Auth/AuthService";
+import "../../styles.css";
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLogout = () => {
-    logoutUser()
+    logoutUser();
     setIsLoggedIn(false);
   };
+  
   return (
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary px-3">
-      <Link class="navbar-brand" to="/">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary px-3">
+      <NavLink className="navbar-brand" to="/">
         SwimApp
-      </Link>
+      </NavLink>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,26 +27,48 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <Link class="nav-link" to="/">
-              Main
-            </Link>
+            <NavLink className="nav-link" to="/">
+              Home
+            </NavLink>
           </li>
           <li class="nav-item">
-            <Link class="nav-link" to="/about">
+            <NavLink className="nav-link" to="/about">
               About
-            </Link>
+            </NavLink>
           </li>
-          <li class="nav-item">
-            <Link class="nav-link" to="/add">
-              Add to Database
-            </Link>
-          </li>
-          {isLoggedIn && (
+          {!isLoggedIn && (
             <li class="nav-item">
-              <button class="btn btn-danger btn-sm ms-2" onClick={handleLogout}>
-                Log Out
-              </button>
-            </li>
+              <NavLink className="nav-link" to="/auth">
+                Sign In
+              </NavLink>
+          </li>
+            )}
+          {isLoggedIn && (
+            <>
+              <li class="nav-item">
+                <NavLink className="nav-link" to="/add">
+                  Add to Database
+                </NavLink>
+              </li>
+              <li class="nav-item">
+                <NavLink className="nav-link" to="/score">
+                  Score Calculator
+                </NavLink>
+              </li>
+              <li class="nav-item">
+                <NavLink className="nav-link" to="/optimal-lineup">
+                  Optimal Lineup
+                </NavLink>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-danger btn-sm ms-2"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+              </li>
+            </>
           )}
         </ul>
       </div>

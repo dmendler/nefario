@@ -1,28 +1,47 @@
 import Parse from "parse";
 /* SERVICE FOR PARSE SERVER OPERATIONS */
 
-export const createPerson = (firstName, lastName, time5Free) => {
-  console.log(
-    "Creating: ",
-    firstName,
-    lastName,
-    "with time_5_free: ",
-    time5Free
-  );
-  const Person = Parse.Object.extend("rank_list");
-  const person = new Person();
+export const createPerson = (formData) => {
+  console.log("Creating competitor: ", formData);
 
-  // Set the fields
-  person.set("first_name", firstName);
-  person.set("last_name", lastName);
-  person.set("time_5_free", time5Free); // Setting the time_5_free field
+  const Competitor = Parse.Object.extend("competitor");
+  const competitor = new Competitor();
 
-  // Setting ACL (Access Control List) for the record
+  // Set basic fields
+  competitor.set("first_name", formData.first_name);
+  competitor.set("last_name", formData.last_name);
+  competitor.set("team_id", parseInt(formData.team_id));
+
+  // Helper to parse times safely
+  const safeParseFloat = (value) => value ? parseFloat(value) : undefined;
+
+  competitor.set("fly_50_time", safeParseFloat(formData.fly_50_time));
+  competitor.set("fly_100_time", safeParseFloat(formData.fly_100_time));
+  competitor.set("fly_200_time", safeParseFloat(formData.fly_200_time));
+  competitor.set("back_50_time", safeParseFloat(formData.back_50_time));
+  competitor.set("back_100_time", safeParseFloat(formData.back_100_time));
+  competitor.set("back_200_time", safeParseFloat(formData.back_200_time));
+  competitor.set("breast_50_time", safeParseFloat(formData.breast_50_time));
+  competitor.set("breast_100_time", safeParseFloat(formData.breast_100_time));
+  competitor.set("breast_200_time", safeParseFloat(formData.breast_200_time));
+  competitor.set("free_50_time", safeParseFloat(formData.free_50_time));
+  competitor.set("free_100_time", safeParseFloat(formData.free_100_time));
+  competitor.set("free_200_time", safeParseFloat(formData.free_200_time));
+  competitor.set("free_500_time", safeParseFloat(formData.free_500_time));
+  competitor.set("free_1000_time", safeParseFloat(formData.free_1000_time));
+  competitor.set("free_1650_time", safeParseFloat(formData.free_1650_time));
+  competitor.set("im_200_time", safeParseFloat(formData.im_200_time));
+
+  // ACL
   const acl = new Parse.ACL();
   acl.setPublicReadAccess(true);
-  acl.setPublicWriteAccess(true);
-  person.setACL(acl);
+  acl.setPublicWriteAccess(true);      
+  competitor.setACL(acl);
+                                                                   
+  return competitor.save();
 };
+
+
 // READ operation - get person by ID
 export const getById = (id) => {
   const Person = Parse.Object.extend("rank_list");

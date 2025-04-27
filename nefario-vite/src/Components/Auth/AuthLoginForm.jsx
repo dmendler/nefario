@@ -31,12 +31,12 @@ const AuthLoginForm = ({ user, onChange, onSubmit, onBack }) => {
           </div>
           <br />
           <div>
-            <button type="submit" class="btn btn-primary btn-sm" onSubmit={onSubmit}>
+            <button type="submit" className="btn btn-primary btn-sm" onSubmit={onSubmit}>
               Submit
             </button>
           </div>
           <div>
-            <button type="button" class="btn btn-link" onClick={onBack}>Back</button>
+            <button type="button" className="btn btn-link" onClick={onBack}>Back</button>
           </div>
         </form>
       </div>

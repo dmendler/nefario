@@ -43,11 +43,11 @@ const AuthRegister = ({ setIsLoggedIn }) => {
     e.preventDefault();
     console.log("submitted: ", e.target);
     setAdd(true);
-    navigate("/add");
+    navigate("/");
   };
 
   const onBack = () => {
-    navigate("/add"); // Redirect back to auth
+    navigate("/auth"); // Redirect back to auth
   }
 
   return (
