@@ -24,6 +24,17 @@ const AddSwimmer = () => {
     im_200_time: "",
   });
 
+  const parseTimeInput = (input) => {
+    if (typeof input !== "string") return NaN;
+    input = input.trim();
+    if (input.includes(":")) {
+      const [minutes, seconds] = input.split(":");
+      return parseInt(minutes, 10) * 60 + parseFloat(seconds);
+    } else {
+      return parseFloat(input);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -37,8 +48,21 @@ const AddSwimmer = () => {
       alert("First name, last name, and team ID are required.");
       return;
     }
+
+    // Create a clean copy of formData with times parsed
+    const cleanedFormData = { ...formData };
+
+    for (const key in cleanedFormData) {
+      if (key.endsWith("_time") && cleanedFormData[key]) {
+        const parsed = parseTimeInput(cleanedFormData[key]);
+        if (!isNaN(parsed)) {
+          cleanedFormData[key] = parsed;
+        }
+      }
+    }
+
     try {
-      await createPerson(formData);
+      await createPerson(cleanedFormData);
       alert("Swimmer added successfully!");
       setFormData({
         first_name: "",
@@ -69,8 +93,8 @@ const AddSwimmer = () => {
 
   return (
     <div>
-      <h2 class="indent">Add a New Swimmer</h2>
-      <form onSubmit={handleSubmit} class="indent">
+      <h2 className="indent">Add a New Swimmer</h2>
+      <form onSubmit={handleSubmit} className="indent">
         <input
           type="text"
           name="first_name"
@@ -115,7 +139,9 @@ const AddSwimmer = () => {
         <input name="im_200_time" placeholder="200 IM Time" value={formData.im_200_time} onChange={handleChange} />
 
         <br />
-        <button type="submit" className="btn btn-success btn-sm" style={{ marginTop: '10px' }}>Add Swimmer</button>
+        <button type="submit" className="btn btn-success btn-sm" style={{ marginTop: '10px' }}>
+          Add Swimmer
+        </button>
       </form>
     </div>
   );
