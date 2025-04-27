@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { createPerson } from "../../Common/Services/PullDBService";
+import React, { useState, useEffect } from "react";
+import { createPerson, deleteSwimmer, getAllSwimmers } from "../../Common/Services/PullDBService";
 
 const AddSwimmer = () => {
   const [formData, setFormData] = useState({
@@ -91,6 +91,28 @@ const AddSwimmer = () => {
     }
   };
 
+  // delete
+  const [swimmers, setSwimmers] = useState([]);
+  const [selectedSwimmer, setSelectedSwimmer] = useState("");
+
+  useEffect(() => {
+    fetchSwimmers();
+  }, []);
+
+  const fetchSwimmers = async () => {
+    const data = await getAllSwimmers("1");
+    setSwimmers(data);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedSwimmer) return;
+
+    console.log("Trying to delete swimmer with id:", selectedSwimmer);
+    await deleteSwimmer(selectedSwimmer); // assuming deleteSwimmer takes objectId
+    await fetchSwimmers(); // refresh dropdown after delete
+    setSelectedSwimmer(""); // reset dropdown
+  };
+
   return (
     <div>
       <h2 className="indent">Add a New Swimmer</h2>
@@ -143,6 +165,33 @@ const AddSwimmer = () => {
           Add Swimmer
         </button>
       </form>
+      <div className="mt-4">
+      <h4>Delete a Swimmer</h4>
+
+      <select
+        className="form-select mb-3"
+        value={selectedSwimmer}
+        onChange={(e) => setSelectedSwimmer(e.target.value)}
+      >
+        <option value="">Select a swimmer</option>
+        {swimmers.map((swimmer) => (
+          <option
+            key={swimmer.id || swimmer.get("objectId")}
+            value={swimmer.id || swimmer.get("objectId")}
+          >
+            {swimmer.get("first_name")} {swimmer.get("last_name")}
+          </option>
+        ))}
+      </select>
+
+      <button
+        className="btn btn-danger"
+        onClick={handleDelete}
+        disabled={!selectedSwimmer}
+      >
+        Delete Swimmer
+      </button>
+    </div>
     </div>
   );
 };

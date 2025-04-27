@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllSwimmersByRank } from "/src/Common/Services/PullDBService";
+import { getAllSwimmers } from "/src/Common/Services/PullDBService";
 import MainForm from "./MainGet";
 
 /* STATEFUL PARENT COMPONENT */
@@ -11,7 +11,7 @@ const MainList = () => {
   // Fetch swimmers from a specific rank
   const fetchSwimmers = () => {
     console.log("Fetching swimmers..."); // Debugging log
-    getAllSwimmersByRank(rankID).then((swimmers) => {
+    getAllSwimmers().then((swimmers) => {
       console.log("Swimmers received:", swimmers); // Debugging log
       setSwimmers(swimmers);
       setDataFetched(true); // Set dataFetched to true after fetching
