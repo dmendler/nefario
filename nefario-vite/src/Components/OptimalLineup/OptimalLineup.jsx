@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllSwimmersByRank } from "/src/Common/Services/PullDBService";
+import { getAllSwimmers } from "/src/Common/Services/PullDBService";
 
 const OptimalLineup = () => {
   const [teamSwimmers, setTeamSwimmers] = useState([]);
@@ -31,7 +31,7 @@ const OptimalLineup = () => {
   useEffect(() => {
     async function fetchSwimmers() {
       try {
-        const swimmers = await getAllSwimmersByRank("1");
+        const swimmers = await getAllSwimmers("1");
         setTeamSwimmers(swimmers);
       } catch (error) {
         console.error("Error fetching swimmers:", error);
