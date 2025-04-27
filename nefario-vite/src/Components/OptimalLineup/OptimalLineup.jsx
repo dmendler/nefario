@@ -185,7 +185,7 @@ const OptimalLineup = () => {
   };
 
   return (
-    <div>
+    <div class="indent">
       <h2>Optimal Lineup Builder</h2>
       <p>
         Input opponent times below, then calculate your best possible lineup.
@@ -275,7 +275,11 @@ const OptimalLineup = () => {
         </tbody>
       </table>
 
-      <button onClick={findOptimalLineup} style={{ marginTop: "20px" }}>
+      <button
+      class="btn btn-primary"
+      onClick={findOptimalLineup}
+      style={{ marginTop: "20px" }}
+      >
         Find Optimal Lineup
       </button>
 
