@@ -16,6 +16,7 @@ const MainModule = () => {
         is designed to help you make the most of your swimming experience.
         Get started today and take your swimming to the next level!
       </p>
+      <p class="indent">To use coaching tools, please visit the Sign In page.</p>
       <MainList />
     </section>
   );
