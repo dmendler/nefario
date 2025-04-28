@@ -1,5 +1,5 @@
 /* STATELESS CHILD COMPONENT */
-const AuthForm = ({ user, onChange, onSubmit, onBack }) => {
+const AuthRegisterForm = ({ user, onChange, onSubmit, onBack }) => {
   return (
     <center>
       <div class="card p-2" style={{ width: "300px", marginTop: "30px", border: "2px solid gray" }}>
@@ -68,4 +68,4 @@ const AuthForm = ({ user, onChange, onSubmit, onBack }) => {
   );
 };
 
-export default AuthForm;
+export default AuthRegisterForm;

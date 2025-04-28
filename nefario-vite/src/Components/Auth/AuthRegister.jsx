@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "./AuthService";
-import AuthForm from "./AuthForm";
+import AuthRegisterForm from "./AuthRegisterForm";
 
 /* STATEFUL PARENT COMPONENT */
 const AuthRegister = ({ setIsLoggedIn }) => {
@@ -52,7 +52,7 @@ const AuthRegister = ({ setIsLoggedIn }) => {
 
   return (
     <div>
-      <AuthForm
+      <AuthRegisterForm
         user={newUser}
         onChange={onChange}
         onSubmit={onSubmit}
