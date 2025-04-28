@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { parseTimeInput } from '/src/Common/Utils/parseTimeInput';
+import { isValidTime } from '/src/Common/Utils/isValidTime';
+import { individualPoints, relayPoints } from '/src/Common/Utils/scoringRules';
+
 
 const ScoreCalculator = () => {
   const [selections, setSelections] = useState({});
@@ -17,17 +21,6 @@ const ScoreCalculator = () => {
     { id: 11, name: "100 Breast", type: "individual" },
     { id: 12, name: "400 Free Relay", type: "relay" },
   ];
-
-  const parseTimeInput = (input) => {
-    if (typeof input !== "string") return NaN;
-    input = input.trim();
-    if (input.includes(":")) {
-      const [minutes, seconds] = input.split(":");
-      return parseInt(minutes, 10) * 60 + parseFloat(seconds);
-    } else {
-      return parseFloat(input);
-    }
-  };
 
   const handleInputChange = (eventId, team, relayIndex, swimmerIndex, value) => {
     setSelections(prev => {
@@ -54,16 +47,6 @@ const ScoreCalculator = () => {
         },
       };
     });
-  };
-
-  const isValidTime = (input) => {
-    if (typeof input === "string") {
-      input = input.trim();
-      if (input.toUpperCase() === "NT") return false;
-      const parsed = parseTimeInput(input);
-      return !isNaN(parsed);
-    }
-    return typeof input === "number" && !isNaN(input);
   };
 
   const handleCalculate = () => {
