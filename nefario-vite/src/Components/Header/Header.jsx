@@ -11,7 +11,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <nav class="navbar navbar-expand-md navbar-dark bg-primary px-3">
       <NavLink className="navbar-brand" to="/">
-        SwimApp
+        LineupLab
       </NavLink>
       <button
         class="navbar-toggler"
