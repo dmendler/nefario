@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllSwimmers } from "/src/Common/Services/PullDBService";
-import MainForm from "./MainGet";
+import MainForm from "./MainForm";
 
 /* STATEFUL PARENT COMPONENT */
 const MainList = () => {

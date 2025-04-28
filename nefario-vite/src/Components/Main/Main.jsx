@@ -6,9 +6,9 @@ import "../../styles.css"
 const MainModule = () => {
   return (
     <section>
-      <h1 class="indent">Welcome to The Swim App</h1>
+      <h1 class="indent">Welcome to LineupLab</h1>
       <p class="indent">Dive into a better way to track and compare your swimmers.
-        With the Swim App, you can easily view swimmer times, explore rankings,
+        With LineupLab, you can easily view swimmer times, explore rankings,
         and even set up head-to-head matchups to see how athletes stack up against
         each other.
       </p>
