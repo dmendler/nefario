@@ -11,9 +11,9 @@ import {
 import AuthModule from "./Auth/Auth.jsx";
 import AuthLogin from "./Auth/AuthLogin.jsx";
 import AuthRegister from "./Auth/AuthRegister.jsx";
-import AddSwimmer from "./Add/Add.jsx";
+import AddModule from "./Add/Add.jsx";
 import ProtectedRoute from "../Common/Services/ProtectedRoute.jsx";
-import ScoreCalculator from "./ScoreCalculator/ScoreCalculator.jsx";
+import ScoreModule from "./ScoreCalculator/ScoreCalculator.jsx";
 import OptimalLineup from "./OptimalLineup/OptimalLineup.jsx";
 // import { authenticateUser } from "./Auth/AuthService.jsx";
 const Components = ({ isLoggedIn, setIsLoggedIn }) => {
@@ -36,12 +36,12 @@ const Components = ({ isLoggedIn, setIsLoggedIn }) => {
           />
           <Route
             path="/add"
-            element={<ProtectedRoute path="/add" element={AddSwimmer} />}
+            element={<ProtectedRoute path="/add" element={AddModule} />}
           />
           <Route path="/*" element={<Navigate to="/" replace />} />
           <Route
             path="/score"
-            element={<ProtectedRoute path="/score" element={ScoreCalculator} />}
+            element={<ProtectedRoute path="/score" element={ScoreModule} />}
           />
           <Route path="/optimal-lineup" element={<ProtectedRoute path="/optimal-lineup" element={OptimalLineup} />} />
         </Routes>
