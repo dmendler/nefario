@@ -1,6 +1,19 @@
 # Change Log
 Change Log for Modern Web Dev Project by Danny Mendler and Brandon Hulse
 
+## [0.4.0] - 2025-04-30
+No steps reqiured to update
+
+### Added
+- Created OptimalLineup and ScoreCalculator Components
+- styling using BootStrap
+
+### Changed
+- Add Component: now also includes update and delete operations
+
+### Fixed
+- Minor bugs with Add Component: fixed some problems with buttons and submitting forms
+
 ## [0.3.0] - 2025-04-02
 No steps required to update
 
