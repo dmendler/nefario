@@ -10,7 +10,7 @@ Step 1: clone repo
 
 Step 2: run npm install 
 
-Step 3: cd to nefario-vite/src (This is the folder with package.json) 
+Step 3: cd to nefario-vite (This is the folder with package.json) 
 
 Step 4: run npm run dev 
 
